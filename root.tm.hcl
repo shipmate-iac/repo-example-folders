@@ -2,7 +2,7 @@ generate_hcl "_backend.tf" {
   content {
     terraform {
       backend "local" {
-        path = "${terramate.stack.path.absolute}/terraform.tfstate"
+        path = "terraform.tfstate"
       }
     }
   }
