@@ -52,9 +52,6 @@ jobs:
       group: apply-${{ matrix.environment }}-${{ matrix.stack }}
       cancel-in-progress: false
     name: apply / ${{ matrix.environment }} / ${{ matrix.stack }}
-    env:
-      TF_VAR_env: ${{ vars.TF_VAR_env }}
-      TF_VAR_region: ${{ vars.TF_VAR_region }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with: { fetch-depth: 0 }
@@ -86,9 +83,6 @@ jobs:
       group: apply-${{ matrix.environment }}-${{ matrix.stack }}
       cancel-in-progress: false
     name: apply / ${{ matrix.environment }} / ${{ matrix.stack }}
-    env:
-      TF_VAR_env: ${{ vars.TF_VAR_env }}
-      TF_VAR_region: ${{ vars.TF_VAR_region }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with: { fetch-depth: 0 }
@@ -120,9 +114,6 @@ jobs:
       group: apply-${{ matrix.environment }}-${{ matrix.stack }}
       cancel-in-progress: false
     name: apply / ${{ matrix.environment }} / ${{ matrix.stack }}
-    env:
-      TF_VAR_env: ${{ vars.TF_VAR_env }}
-      TF_VAR_region: ${{ vars.TF_VAR_region }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with: { fetch-depth: 0 }
@@ -154,9 +145,6 @@ jobs:
       group: apply-${{ matrix.environment }}-${{ matrix.stack }}
       cancel-in-progress: false
     name: apply / ${{ matrix.environment }} / ${{ matrix.stack }}
-    env:
-      TF_VAR_env: ${{ vars.TF_VAR_env }}
-      TF_VAR_region: ${{ vars.TF_VAR_region }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with: { fetch-depth: 0 }
@@ -188,9 +176,6 @@ jobs:
       group: apply-${{ matrix.environment }}-${{ matrix.stack }}
       cancel-in-progress: false
     name: apply / ${{ matrix.environment }} / ${{ matrix.stack }}
-    env:
-      TF_VAR_env: ${{ vars.TF_VAR_env }}
-      TF_VAR_region: ${{ vars.TF_VAR_region }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with: { fetch-depth: 0 }
@@ -222,9 +207,6 @@ jobs:
       group: apply-${{ matrix.environment }}-${{ matrix.stack }}
       cancel-in-progress: false
     name: apply / ${{ matrix.environment }} / ${{ matrix.stack }}
-    env:
-      TF_VAR_env: ${{ vars.TF_VAR_env }}
-      TF_VAR_region: ${{ vars.TF_VAR_region }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with: { fetch-depth: 0 }
@@ -256,9 +238,6 @@ jobs:
       group: apply-${{ matrix.environment }}-${{ matrix.stack }}
       cancel-in-progress: false
     name: apply / ${{ matrix.environment }} / ${{ matrix.stack }}
-    env:
-      TF_VAR_env: ${{ vars.TF_VAR_env }}
-      TF_VAR_region: ${{ vars.TF_VAR_region }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with: { fetch-depth: 0 }
@@ -290,9 +269,6 @@ jobs:
       group: apply-${{ matrix.environment }}-${{ matrix.stack }}
       cancel-in-progress: false
     name: apply / ${{ matrix.environment }} / ${{ matrix.stack }}
-    env:
-      TF_VAR_env: ${{ vars.TF_VAR_env }}
-      TF_VAR_region: ${{ vars.TF_VAR_region }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with: { fetch-depth: 0 }
