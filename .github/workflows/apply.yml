@@ -31,12 +31,12 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event.inputs.ref }}
-      - uses: ship-iac/shipmate/actions/setup@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/setup@61400b83ee77b33984a0838d8470470590806910
         with:
           terramate-version: ${{ vars.TERRAMATE_VERSION }}
           tofu-version: ${{ vars.TOFU_VERSION }}
       - id: d
-        uses: ship-iac/shipmate/actions/apply-detect@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+        uses: ship-iac/shipmate/actions/apply-detect@61400b83ee77b33984a0838d8470470590806910
         with:
           environment: ${{ github.event.inputs.environment }}
           plan-run-id: ${{ github.event.inputs.plan_run_id }}
@@ -45,7 +45,7 @@ jobs:
 
   wave0:
     needs: [detect]
-    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave0 != '[]' }}
+    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave0 != '[]' && !contains(join(needs.*.result, ','), 'cancelled') }}
     runs-on: ubuntu-slim
     permissions: { contents: read, checks: write, actions: read }
     strategy:
@@ -62,11 +62,11 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ needs.detect.outputs.head_sha }}
-      - uses: ship-iac/shipmate/actions/setup@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/setup@61400b83ee77b33984a0838d8470470590806910
         with:
           terramate-version: ${{ vars.TERRAMATE_VERSION }}
           tofu-version: ${{ vars.TOFU_VERSION }}
-      - uses: ship-iac/shipmate/actions/apply-cell@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/apply-cell@61400b83ee77b33984a0838d8470470590806910
         with:
           stack: ${{ matrix.stack }}
           stack-name: ${{ matrix.stack }}
@@ -78,7 +78,7 @@ jobs:
 
   wave1:
     needs: [detect, wave0]
-    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave1 != '[]' }}
+    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave1 != '[]' && !contains(join(needs.*.result, ','), 'cancelled') }}
     runs-on: ubuntu-slim
     permissions: { contents: read, checks: write, actions: read }
     strategy:
@@ -95,11 +95,11 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ needs.detect.outputs.head_sha }}
-      - uses: ship-iac/shipmate/actions/setup@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/setup@61400b83ee77b33984a0838d8470470590806910
         with:
           terramate-version: ${{ vars.TERRAMATE_VERSION }}
           tofu-version: ${{ vars.TOFU_VERSION }}
-      - uses: ship-iac/shipmate/actions/apply-cell@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/apply-cell@61400b83ee77b33984a0838d8470470590806910
         with:
           stack: ${{ matrix.stack }}
           stack-name: ${{ matrix.stack }}
@@ -111,7 +111,7 @@ jobs:
 
   wave2:
     needs: [detect, wave0, wave1]
-    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave2 != '[]' }}
+    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave2 != '[]' && !contains(join(needs.*.result, ','), 'cancelled') }}
     runs-on: ubuntu-slim
     permissions: { contents: read, checks: write, actions: read }
     strategy:
@@ -128,11 +128,11 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ needs.detect.outputs.head_sha }}
-      - uses: ship-iac/shipmate/actions/setup@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/setup@61400b83ee77b33984a0838d8470470590806910
         with:
           terramate-version: ${{ vars.TERRAMATE_VERSION }}
           tofu-version: ${{ vars.TOFU_VERSION }}
-      - uses: ship-iac/shipmate/actions/apply-cell@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/apply-cell@61400b83ee77b33984a0838d8470470590806910
         with:
           stack: ${{ matrix.stack }}
           stack-name: ${{ matrix.stack }}
@@ -144,7 +144,7 @@ jobs:
 
   wave3:
     needs: [detect, wave0, wave1, wave2]
-    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave3 != '[]' }}
+    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave3 != '[]' && !contains(join(needs.*.result, ','), 'cancelled') }}
     runs-on: ubuntu-slim
     permissions: { contents: read, checks: write, actions: read }
     strategy:
@@ -161,11 +161,11 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ needs.detect.outputs.head_sha }}
-      - uses: ship-iac/shipmate/actions/setup@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/setup@61400b83ee77b33984a0838d8470470590806910
         with:
           terramate-version: ${{ vars.TERRAMATE_VERSION }}
           tofu-version: ${{ vars.TOFU_VERSION }}
-      - uses: ship-iac/shipmate/actions/apply-cell@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/apply-cell@61400b83ee77b33984a0838d8470470590806910
         with:
           stack: ${{ matrix.stack }}
           stack-name: ${{ matrix.stack }}
@@ -177,7 +177,7 @@ jobs:
 
   wave4:
     needs: [detect, wave0, wave1, wave2, wave3]
-    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave4 != '[]' }}
+    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave4 != '[]' && !contains(join(needs.*.result, ','), 'cancelled') }}
     runs-on: ubuntu-slim
     permissions: { contents: read, checks: write, actions: read }
     strategy:
@@ -194,11 +194,11 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ needs.detect.outputs.head_sha }}
-      - uses: ship-iac/shipmate/actions/setup@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/setup@61400b83ee77b33984a0838d8470470590806910
         with:
           terramate-version: ${{ vars.TERRAMATE_VERSION }}
           tofu-version: ${{ vars.TOFU_VERSION }}
-      - uses: ship-iac/shipmate/actions/apply-cell@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/apply-cell@61400b83ee77b33984a0838d8470470590806910
         with:
           stack: ${{ matrix.stack }}
           stack-name: ${{ matrix.stack }}
@@ -210,7 +210,7 @@ jobs:
 
   wave5:
     needs: [detect, wave0, wave1, wave2, wave3, wave4]
-    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave5 != '[]' }}
+    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave5 != '[]' && !contains(join(needs.*.result, ','), 'cancelled') }}
     runs-on: ubuntu-slim
     permissions: { contents: read, checks: write, actions: read }
     strategy:
@@ -227,11 +227,11 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ needs.detect.outputs.head_sha }}
-      - uses: ship-iac/shipmate/actions/setup@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/setup@61400b83ee77b33984a0838d8470470590806910
         with:
           terramate-version: ${{ vars.TERRAMATE_VERSION }}
           tofu-version: ${{ vars.TOFU_VERSION }}
-      - uses: ship-iac/shipmate/actions/apply-cell@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/apply-cell@61400b83ee77b33984a0838d8470470590806910
         with:
           stack: ${{ matrix.stack }}
           stack-name: ${{ matrix.stack }}
@@ -243,7 +243,7 @@ jobs:
 
   wave6:
     needs: [detect, wave0, wave1, wave2, wave3, wave4, wave5]
-    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave6 != '[]' }}
+    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave6 != '[]' && !contains(join(needs.*.result, ','), 'cancelled') }}
     runs-on: ubuntu-slim
     permissions: { contents: read, checks: write, actions: read }
     strategy:
@@ -260,11 +260,11 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ needs.detect.outputs.head_sha }}
-      - uses: ship-iac/shipmate/actions/setup@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/setup@61400b83ee77b33984a0838d8470470590806910
         with:
           terramate-version: ${{ vars.TERRAMATE_VERSION }}
           tofu-version: ${{ vars.TOFU_VERSION }}
-      - uses: ship-iac/shipmate/actions/apply-cell@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/apply-cell@61400b83ee77b33984a0838d8470470590806910
         with:
           stack: ${{ matrix.stack }}
           stack-name: ${{ matrix.stack }}
@@ -276,7 +276,7 @@ jobs:
 
   wave7:
     needs: [detect, wave0, wave1, wave2, wave3, wave4, wave5, wave6]
-    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave7 != '[]' }}
+    if: ${{ !failure() && !cancelled() && needs.detect.outputs.wave7 != '[]' && !contains(join(needs.*.result, ','), 'cancelled') }}
     runs-on: ubuntu-slim
     permissions: { contents: read, checks: write, actions: read }
     strategy:
@@ -293,11 +293,11 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ needs.detect.outputs.head_sha }}
-      - uses: ship-iac/shipmate/actions/setup@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/setup@61400b83ee77b33984a0838d8470470590806910
         with:
           terramate-version: ${{ vars.TERRAMATE_VERSION }}
           tofu-version: ${{ vars.TOFU_VERSION }}
-      - uses: ship-iac/shipmate/actions/apply-cell@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+      - uses: ship-iac/shipmate/actions/apply-cell@61400b83ee77b33984a0838d8470470590806910
         with:
           stack: ${{ matrix.stack }}
           stack-name: ${{ matrix.stack }}
@@ -314,7 +314,7 @@ jobs:
     steps:
       - name: Complete checkmate if every apply check is done
         id: gate
-        uses: ship-iac/shipmate/actions/checkmate-refresh@a73834ee08553ba2c4a1d7e3aed9d64622c3e5db
+        uses: ship-iac/shipmate/actions/checkmate-refresh@61400b83ee77b33984a0838d8470470590806910
         with:
           head-sha: ${{ github.event.inputs.ref }}
           github-token: ${{ github.token }}
